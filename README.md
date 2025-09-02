@@ -1,6 +1,6 @@
 # SilOracle and SiloActive: Accurate siRNA Silencing Efficiency Prediction and New Target Discovery Powered by Language Model
 
-SilOracle and SiloActive is a novel, accurate and fast tool for siRNA Silencing Efficiency Discovery. It utilizes the strong ability of transformer-based language models. Trained on the large siRNA dataset siRNAOD$^3$, SilOracle demonstrates its outstanding ability to predict the silencing efficiency of siRNA sequences.
+SilOracle and SiloActive is a novel, accurate and fast tool for siRNA Silencing Efficiency Discovery. It utilizes the strong ability of transformer-based language models. Trained on the large siRNA dataset siRNAOD3, SilOracle demonstrates its outstanding ability to predict the silencing efficiency of siRNA sequences.
 
 Based on the strong ability of SilOracle, we also develop an *in silico* pipeline for discovery of silencing efficiency of new targets. SiloActive is able to fit the data rapidly by only using a small amount of data, aiming to offer guidances for wet experiments.
 
@@ -28,7 +28,7 @@ If you want to perform experiments and reproduce the result, the following tutor
 
 #### 1.1 Data Preparation
 
-If you want to make the repreduction of the paper, make sure you download the siRNAOD$^3$ dataset from [Shanghai Academy of AI for Science Website: Datasets](https://www.sais.com.cn/en/data-publish). After unzipping the file, move the csv file `siRNA_Open_Dataset_for_Drug_Discovery_1.0.csv` inside the downloaded folder into `./data` folder of this project. Then, run the following command at the root path of this project to make data preprocessing.
+If you want to make the repreduction of the paper, make sure you download the siRNAOD3 dataset from [Shanghai Academy of AI for Science Website: Datasets](https://www.sais.com.cn/en/data-publish). After unzipping the file, move the csv file `siRNA_Open_Dataset_for_Drug_Discovery_1.0.csv` inside the downloaded folder into `./data` folder of this project. Then, run the following command at the root path of this project to make data preprocessing.
 
 ```bash
 bash data_preprocessing.sh
@@ -82,7 +82,7 @@ python3 trainsilo.py \
     --pred_result_save_path your_name_for_test.csv
 ```
 
-The training of SilOracle lasts about 2 hours on a single Nvidia Tesla A100-40G GPU for 200 epochs in siRNAOD$^3$ dataset.
+The training of SilOracle lasts about 2 hours on a single Nvidia Tesla A100-40G GPU for 200 epochs in siRNAOD3 dataset.
 
  After training, the result of inference on the test dataset will be saved at `result_save_folder/pred_result_save_path`, and state dict of the model will be saved at `model_save_folder/{YourModelName}_best.pth`.
 
