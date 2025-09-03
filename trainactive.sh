@@ -1,9 +1,4 @@
 #!/bin/bash
-#SBATCH -o job-%j.log
-#SBATCH -e job-%j.err
-#SBATCH --gres=gpu:1
-#SBATCH -p vip_gpu_ailab
-#SBATCH -A aim
 
 
 for active_round in {1..5}; do
