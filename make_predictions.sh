@@ -1,9 +1,4 @@
 #!/bin/bash
-#SBATCH -o job-%j.log
-#SBATCH -e job-%j.err
-#SBATCH --gres=gpu:1
-#SBATCH -p vip_gpu_ailab
-#SBATCH -A aim
 
 python3 make_predictions.py \
     --model_state_dict_path SilOracle_best.pth \
