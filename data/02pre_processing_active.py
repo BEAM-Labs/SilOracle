@@ -13,32 +13,30 @@ gene_2 = pd.read_csv(gene_2_path)
 
 def split_dataset(df: pd.DataFrame, random_state: int = 42):
     """
-    将输入的DataFrame按照mRNA_remaining_pct字段的分布，划分为9条训练数据的trainset，
-    剩余数据按80%/20%划分为poolset和testset。
+    Split the input DataFrame according to the distribution of the 'mRNA_remaining_pct' field:
+    select 100 samples as the trainset, and split the remaining data into poolset and testset in an 80%/20% ratio.
     
-    参数:
-    df (pd.DataFrame): 输入的DataFrame，必须包含mRNA_remaining_pct字段
-    random_state (int): 随机种子，用于确保结果可重现
+    Args:
+    df (pd.DataFrame): Input DataFrame, must contain the 'mRNA_remaining_pct' field
+    random_state (int): Random seed to ensure reproducibility
     
-    返回:
-    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: 划分后的trainset、poolset和testset
+    Returns:
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]: The split trainset, poolset, and testset
     """
-    # 检查输入DataFrame是否包含必要的字段
+    # Check if the input DataFrame contains the required field
     if 'mRNA_remaining_pct' not in df.columns:
-        raise ValueError("输入的DataFrame中缺少'mRNA_remaining_pct'字段")
+        raise ValueError("The input DataFrame is missing the 'mRNA_remaining_pct' field")
     
-    # 使用分层抽样，根据mRNA_remaining_pct进行分箱
+    # Use stratified sampling, binning by 'mRNA_remaining_pct'
     df['bin'] = pd.qcut(df['mRNA_remaining_pct'], 10, duplicates='drop')
     
-    # 首先抽取9条训练数据
+    # First, select 100 samples for the training set
     trainset, remaining = train_test_split(
         df,
         train_size=100,
         stratify=df['bin'],
         random_state=random_state
     )
-    
-    # 对剩余数据进行80/20分层划分
     remaining['bin'] = pd.qcut(remaining['mRNA_remaining_pct'], 10, duplicates='drop')
     poolset, testset = train_test_split(
         remaining,
@@ -47,7 +45,6 @@ def split_dataset(df: pd.DataFrame, random_state: int = 42):
         random_state=random_state
     )
     
-    # 移除临时添加的分箱列
     trainset = trainset.drop(columns=['bin'])
     poolset = poolset.drop(columns=['bin'])
     testset = testset.drop(columns=['bin'])
